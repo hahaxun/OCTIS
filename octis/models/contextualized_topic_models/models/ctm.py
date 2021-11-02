@@ -146,6 +146,23 @@ class CTM(object):
         loss = KL + RL
 
         return loss.sum()
+    
+    def load_model(self, model_dir, checkpoint, input_size, bert_input_size):
+        self.model = ctm.CTM(input_size=input_size, bert_input_size=bert_input_size, model_type='prodLDA',
+                        num_topics=self.hyperparameters['num_topics'], dropout=self.hyperparameters['dropout'],
+                        activation=self.hyperparameters['activation'], lr=self.hyperparameters['lr'],
+                        inference_type=self.hyperparameters['inference_type'],
+                        hidden_sizes=self.hyperparameters['hidden_sizes'],
+                        solver=self.hyperparameters['solver'],
+                        momentum=self.hyperparameters['momentum'],
+                        num_epochs=self.hyperparameters['num_epochs'],
+                        learn_priors=self.hyperparameters['learn_priors'],
+                        batch_size=self.hyperparameters['batch_size'],
+                        num_samples=self.hyperparameters['num_samples'],
+                        topic_prior_mean=self.hyperparameters["prior_mean"],
+                        reduce_on_plateau=self.hyperparameters['reduce_on_plateau'],
+                        topic_prior_variance=self.hyperparameters["prior_variance"])
+        self.model.load(model_dir, checkpoint)
 
     def _train_epoch(self, loader):
         """Train epoch."""
