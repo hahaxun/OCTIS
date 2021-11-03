@@ -423,8 +423,8 @@ class CTM(object):
         with open(model_file, 'rb') as model_dict:
             checkpoint = torch.load(model_dict)
 
-        for (k, v) in checkpoint['dcue_dict'].items():
-            setattr(self, k, v)
+        #for (k, v) in checkpoint['dcue_dict'].items():
+        #    setattr(self, k, v)
 
         self.model.load_state_dict(checkpoint['state_dict'])
 
